@@ -1,12 +1,12 @@
 # 🎥 AI Video Analyzer
 
-An AI-powered video assistant that transforms YouTube videos and uploaded audio/video files into searchable, actionable knowledge. It uses local Whisper transcription, Sarvam for Hinglish-to-English translation, Mistral AI for summarization and information extraction, and a RAG pipeline for context-aware Q&A.
+An AI-powered video assistant that transforms YouTube videos and uploaded audio/video files into searchable, actionable knowledge. It uses local Whisper transcription, Sarvam for Hinglish-to-English translation, Groq AI for summarization and information extraction, and a RAG pipeline for context-aware Q&A.
 
 ## ✨ Features
 
 - 🎙️ **Audio/Video Transcription** — Transcribe English audio using local Whisper.
 - 🌐 **Hinglish → English** — Translate Hinglish speech into English using Sarvam AI.
-- 📝 **AI Summarization** — Generate concise, structured summaries using Mistral AI.
+- 📝 **AI Summarization** — Generate concise, structured summaries using Groq AI.
 - ✅ **Action Item Extraction** — Extract tasks, owners, and deadlines.
 - 📌 **Key Decision Extraction** — Identify important decisions from the transcript.
 - ❓ **Question Extraction** — Detect open or unresolved questions.
@@ -34,7 +34,7 @@ English STT     Hinglish → English
    ┌────────┴───────────┐
    ↓                    ↓
 Summarization      Information
-  (Mistral)         Extraction
+  (Groq)         Extraction
    ↓                    ↓
 Summary       Actions / Decisions /
               Open Questions
@@ -50,7 +50,7 @@ Summary       Actions / Decisions /
             ↓
         RAG + LCEL
             ↓
-       Mistral AI
+         Groq AI
             ↓
       Context-Aware Q&A
 ```
@@ -59,7 +59,7 @@ Summary       Actions / Decisions /
 
 - **Language:** Python
 - **Frontend:** Streamlit
-- **LLM:** Mistral AI
+- **LLM:** Groq AI
 - **Speech-to-Text:** OpenAI Whisper
 - **Translation:** Sarvam AI
 - **LLM Framework:** LangChain / LCEL
@@ -127,7 +127,7 @@ Make sure `ffmpeg` is available in your system PATH.
 Create a `.env` file in the project root:
 
 ```env
-MISTRAL_API_KEY=your_mistral_api_key
+GROQ_API_KEY=your_groq_api_key
 SARVAM_API_KEY=your_sarvam_api_key
 ```
 
@@ -159,7 +159,7 @@ English audio is transcribed locally using Whisper. For Hinglish input, the appl
 
 ### 4. Summarization & Extraction
 
-The transcript is processed by Mistral AI to generate:
+The transcript is processed by Groq AI to generate:
 
 - A structured summary
 - Action items
@@ -171,7 +171,7 @@ The transcript is processed by Mistral AI to generate:
 
 The transcript is divided into smaller chunks and converted into vector embeddings using HuggingFace's `all-MiniLM-L6-v2`.
 
-These embeddings are stored in ChromaDB. When a user asks a question, the system retrieves the most relevant transcript chunks and passes them as context to Mistral through a LangChain LCEL RAG chain.
+These embeddings are stored in ChromaDB. When a user asks a question, the system retrieves the most relevant transcript chunks and passes them as context to Groq through a LangChain LCEL RAG chain.
 
 ### 6. Answer Generation
 
@@ -196,7 +196,7 @@ Retrieved Context
     ↓
 LangChain LCEL Prompt
     ↓
-Mistral AI
+Groq AI
     ↓
 Grounded Answer
 ```
